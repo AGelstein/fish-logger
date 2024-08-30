@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -11,13 +12,25 @@ import { FormsModule } from '@angular/forms';
 export class MyComponentComponent implements OnInit {
   message: string = 'Hello, Angular!';
   inputValue: string = '';
+  items: any[] = [];
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
 
   showMessage(): void {
     this.message = this.inputValue;
+  }
+
+  getItems(): void {
+    this.http.get<any[]>('/api/items').subscribe(
+      (response) => {
+        this.items = response;
+      },
+      (error) => {
+        console.error('Error:', error);
+      }
+    );
   }
 }

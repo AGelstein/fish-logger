@@ -1,3 +1,8 @@
 <input type="text"  [(ngModel)]="inputValue">
 <button (click)="showMessage()">Show Message</button>
 <p>{{ message }}</p>
+<ul>
+    @for(item of items; track item.id) {
+        <li>{{ item.name }}</li>
+    }
+</ul>
