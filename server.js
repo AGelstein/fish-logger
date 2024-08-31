@@ -8,6 +8,7 @@ app.listen(port, () => {
 });
 
 const { Pool } = require('pg');
+const { authenticateJwt } = require('./auth');
 
 const pool = new Pool({
   user: 'postgres',
@@ -25,7 +26,7 @@ pool.connect((err) => {
   }
 });
 
-app.get('/api/items', (req, res) => {
+app.get('/api/items', authenticateJwt, (req, res) => {
     pool.query('SELECT * FROM items', (err, result) => {
       if (err) {
         console.error('Error executing query:', err);
@@ -36,7 +37,7 @@ app.get('/api/items', (req, res) => {
     });
   });
   
-  app.post('/api/items', (req, res) => {
+  app.post('/api/items', authenticateJwt, (req, res) => {
     const { name, description } = req.body;
   
     pool.query(
@@ -53,7 +54,7 @@ app.get('/api/items', (req, res) => {
     );
   });
 
-  app.put('/api/items/:id', (req, res) => {
+  app.put('/api/items/:id', authenticateJwt, (req, res) => {
     const { id } = req.params;
     const { name, description } = req.body;
   
@@ -73,7 +74,7 @@ app.get('/api/items', (req, res) => {
     );
   });
   
-  app.delete('/api/items/:id', (req, res) => {
+  app.delete('/api/items/:id', authenticateJwt, (req, res) => {
     const { id } = req.params;
   
     pool.query(
