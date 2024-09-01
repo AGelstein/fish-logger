@@ -3,7 +3,7 @@ const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const secretKey = 'your_secret_key';
+const secretKey = 'BM8yoeRub9wB8kkYPLtBwp/CapXFogakbPF+tsCKT7E=';
 
 const generateJwtToken = (user) => {
   const payload = {
